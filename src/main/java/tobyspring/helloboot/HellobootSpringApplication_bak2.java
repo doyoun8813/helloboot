@@ -18,6 +18,11 @@ public class HellobootSpringApplication_bak2 {
 		// 컨테이너 내부에 HelloService 인터페이스 구현한 Bean을 찾아서 주입
 		applicationContext.registerBean(SimpleHelloService.class);
 		// spring container 초기화 이 때 등록한 Bean을 만든다.
+		// refresh() 메소드는 대표적인 템플릿 메소드 패턴을 적용한 것으로
+		// AbstractApplicationContext 클래스는 스프링 컨테이너를 추상화 캡슐화한 클래스로
+		// 스프링 컨테이너 초기화 과정의 기본적인 틀을 refresh 메서드에 구현하고 세부적인 사항은
+		// AbstractApplicationContext를 구현한 클래스에서 hook 클래스를 정의하면
+		// 구체적인 메소드 실행은 구현한 쪽의 메서드로 실행된다.
 		applicationContext.refresh();
 
 		// 부트 설치시 내장형 tomcat API들도 같이 설치되었다. 해당 API를 사용한다.
