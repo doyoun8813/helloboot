@@ -3,15 +3,31 @@ package tobyspring.helloboot;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+// 구성 정보를 가진 클래스 스프링 컨테이너가 Bean 구성정보가 있다는걸 인지
+@Configuration
 public class HellobootSpringApplication_bak3 {
+
+	// 팩토리 메서드 사용하여 Bean 생성, 의존관계 주입 후 스프링 컨테이너에게 Bean으로 등록하여 사용
+	@Bean
+	public HelloController_bak3 helloController(HelloService helloService) {
+		return new HelloController_bak3(helloService);
+	}
+
+	@Bean
+	public HelloService helloService() {
+		return new SimpleHelloService();
+	}
 
 	public static void main(String[] args) {
 
-		// spring container 생성
-		final GenericWebApplicationContext applicationContext = new GenericWebApplicationContext(){
+		// Annotaion 기반의 spring container로 변경
+		final AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
 
 			// GenericWebApplicationContext을 상속한 익명 클래스
 
@@ -38,16 +54,7 @@ public class HellobootSpringApplication_bak3 {
 			}
 		};
 		// spring container에 Bean 등록 방법
-		applicationContext.registerBean(HelloController.class);
-		// HelloSpringController 생성자에 HelloService 타입이 매개변수로 되어 있으면
-		// 컨테이너 내부에 HelloService 인터페이스 구현한 Bean을 찾아서 주입
-		applicationContext.registerBean(SimpleHelloService.class);
-		// spring container 초기화 이 때 등록한 Bean을 만든다.
-		// refresh() 메소드는 대표적인 템플릿 메소드 패턴을 적용한 것으로
-		// AbstractApplicationContext 클래스는 스프링 컨테이너를 추상화 캡슐화한 클래스로
-		// 스프링 컨테이너 초기화 과정의 기본적인 틀을 refresh 메서드에 구현하고 세부적인 사항은
-		// AbstractApplicationContext를 구현한 클래스에서 hook 클래스를 정의하면
-		// 구체적인 메소드 실행은 구현한 쪽의 메서드로 실행된다.
+		applicationContext.register(HellobootSpringApplication_bak3.class);
 		applicationContext.refresh();
 
 	} // end of main
