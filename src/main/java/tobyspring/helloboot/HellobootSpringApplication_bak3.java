@@ -4,6 +4,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
@@ -11,18 +12,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 // 구성 정보를 가진 클래스 스프링 컨테이너가 Bean 구성정보가 있다는걸 인지
 @Configuration
+@ComponentScan
 public class HellobootSpringApplication_bak3 {
-
-	// 팩토리 메서드 사용하여 Bean 생성, 의존관계 주입 후 스프링 컨테이너에게 Bean으로 등록하여 사용
-	@Bean
-	public HelloController_bak3 helloController(HelloService helloService) {
-		return new HelloController_bak3(helloService);
-	}
-
-	@Bean
-	public HelloService helloService() {
-		return new SimpleHelloService();
-	}
 
 	public static void main(String[] args) {
 
