@@ -9,13 +9,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import tobyspring.config.Config;
+import tobyspring.config.authconfig.DispatcherServletConfig;
+import tobyspring.config.authconfig.TomcatWebServerConfig;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Configuration
 @ComponentScan
-@Import(Config.class)
+@Import({DispatcherServletConfig.class, TomcatWebServerConfig.class})
 public @interface MySpringBootApplication {
 
 }
