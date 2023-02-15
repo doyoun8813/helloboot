@@ -19,6 +19,8 @@ public class MyAutoConfigImportSelector implements DeferredImportSelector {
 	public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 		List<String> autoConfigs = new ArrayList<>();
 
+		// classpath/resource/META-INF.spring.full-qualified-annotation-name.imports 라는 파일을 읽어와서
+		// auto config 대상들을 load한다
 		ImportCandidates.load(MyAutoConfiguration.class, classLoader).forEach(autoConfigs::add);
 
 		return autoConfigs.toArray(new String[0]);
