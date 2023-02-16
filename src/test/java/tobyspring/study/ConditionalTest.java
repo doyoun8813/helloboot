@@ -2,6 +2,11 @@ package tobyspring.study;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -41,8 +46,13 @@ public class ConditionalTest {
 			});
 	}
 
-	@Configuration
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
 	@Conditional(TrueCondition.class)
+	@interface TrueConditional{}
+
+	@Configuration
+	@TrueConditional
 	static class Config1 {
 		@Bean
 		MyBean myBean() {
@@ -50,8 +60,13 @@ public class ConditionalTest {
 		}
 	}
 
-	@Configuration
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
 	@Conditional(FalseCondition.class)
+	@interface FalseConditional{}
+
+	@Configuration
+	@FalseConditional
 	static class Config2 {
 		@Bean
 		MyBean myBean() {
