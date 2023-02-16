@@ -6,6 +6,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,11 +49,13 @@ public class ConditionalTest {
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
-	@Conditional(TrueCondition.class)
-	@interface TrueConditional{}
+	@Conditional(BooleanCondition.class)
+	@interface BooleanConditional{
+		boolean value();
+	}
 
 	@Configuration
-	@TrueConditional
+	@BooleanConditional(true)
 	static class Config1 {
 		@Bean
 		MyBean myBean() {
@@ -60,13 +63,8 @@ public class ConditionalTest {
 		}
 	}
 
-	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
-	@Conditional(FalseCondition.class)
-	@interface FalseConditional{}
-
 	@Configuration
-	@FalseConditional
+	@BooleanConditional(false)
 	static class Config2 {
 		@Bean
 		MyBean myBean() {
@@ -74,21 +72,15 @@ public class ConditionalTest {
 		}
 	}
 
-	static class MyBean {
+	static class MyBean {}
 
-	}
-
-	static class TrueCondition implements Condition {
+	static class BooleanCondition implements Condition {
 		@Override
 		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-			return true;
-		}
-	}
-
-	static class FalseCondition implements Condition {
-		@Override
-		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-			return false;
+			// Annotation에 붙은 속성값을 활용해서 컨디션의 조건을 결정하는 로직 구현
+			Map<String, Object> annotationAttributes = metadata.getAnnotationAttributes(BooleanConditional.class.getName());
+			assert annotationAttributes != null;
+			return (Boolean)annotationAttributes.get("value");
 		}
 	}
 }
