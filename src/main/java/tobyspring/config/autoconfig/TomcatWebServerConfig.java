@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.ClassUtils;
 
 import tobyspring.config.MyAutoConfiguration;
 
@@ -23,8 +24,8 @@ public class TomcatWebServerConfig {
 	static class TomcatCondition implements Condition {
 		@Override
 		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-			// false 리턴시 등록 안함
-			return false;
+			// 클래스 이름으로 클래스 찾는 스프링이 제공하는 유틸리티 메서드
+			return ClassUtils.isPresent("org.apache.catalina.startup.Tomcat", context.getClassLoader());
 		}
 	}
 }
