@@ -38,8 +38,7 @@ public class ConditionalTest {
 	@Test
 	@DisplayName("false 컨디셔널")
 	void conditional2(){
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner();
-		contextRunner.withUserConfiguration(Config2.class)
+		new ApplicationContextRunner().withUserConfiguration(Config2.class)
 			.run(context -> {
 				// Bean 존재하지 않는지 여부 체크
 				assertThat(context).doesNotHaveBean(MyBean.class);
@@ -54,6 +53,7 @@ public class ConditionalTest {
 		boolean value();
 	}
 
+	// 조건에 따라 Bean을 등록하는 설정 클래스
 	@Configuration
 	@BooleanConditional(true)
 	static class Config1 {
@@ -63,6 +63,7 @@ public class ConditionalTest {
 		}
 	}
 
+	// 조건에 따라 Bean을 등록하는 설정 클래스
 	@Configuration
 	@BooleanConditional(false)
 	static class Config2 {
@@ -72,6 +73,7 @@ public class ConditionalTest {
 		}
 	}
 
+	// 테스트용 생성할 Bean
 	static class MyBean {}
 
 	static class BooleanCondition implements Condition {
