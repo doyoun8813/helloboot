@@ -1,5 +1,7 @@
 package tobyspring.config.autoconfig;
 
+import java.util.Map;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -28,9 +30,12 @@ public class PropertyPostProcessorConfig {
 
 				if(annotaion == null) return bean;
 
+				Map<String, Object> attrs = AnnotationUtils.getAnnotationAttributes(annotaion);
+				String prefix = (String)attrs.get("prefix");
+
 				// Binder를 사용하여 예외사항 고려한 코드
 				// 바인딩할 프로퍼티가 하나도 없으면 bean 오브젝트 만듦
-				return Binder.get(env).bindOrCreate("", bean.getClass());
+				return Binder.get(env).bindOrCreate(prefix, bean.getClass());
 			}
 		};
 	}
