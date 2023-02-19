@@ -25,7 +25,7 @@ public class HelloApiTest {
 		// ResponseEntity는 HttpEntity를 상속 받는다.
 		// HttpRequest에 대한 응답 데이터를 가지고 HttpStatus, Header, Body를 포함한다.
 		final ResponseEntity<String> res =
-			rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Spring");
+			rest.getForEntity("http://localhost:8080/app/hello?name={name}", String.class, "Spring");
 
 		// 응답 검증 3가지 확인
 		// status code 200
@@ -35,7 +35,7 @@ public class HelloApiTest {
 		// header 전체를 담은 컬렉션 리턴되어 첫번째 헤더 컨텐트 타입의 text/plain 인지 확인
 		Assertions.assertThat(res.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)).startsWith(MediaType.TEXT_PLAIN_VALUE);
 		// body hello Spring
-		Assertions.assertThat(res.getBody()).isEqualTo("Hello Spring");
+		Assertions.assertThat(res.getBody()).isEqualTo("*Hello Spring*");
 
 	}
 
