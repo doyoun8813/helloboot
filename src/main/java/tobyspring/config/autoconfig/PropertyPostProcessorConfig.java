@@ -30,6 +30,7 @@ public class PropertyPostProcessorConfig {
 
 				if(annotaion == null) return bean;
 
+				// 모든 애노테이션 정보를 맵으로 받아서 "prefix" 설정 정보를 가져온다.
 				Map<String, Object> attrs = AnnotationUtils.getAnnotationAttributes(annotaion);
 				String prefix = (String)attrs.get("prefix");
 
