@@ -7,9 +7,10 @@ import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 
 // spring 컨테이너를 이용한 context 테스트를 위해 설정
-@HellobootTest
+@JdbcTest
 public class DataSourceTest {
 
 	@Autowired
