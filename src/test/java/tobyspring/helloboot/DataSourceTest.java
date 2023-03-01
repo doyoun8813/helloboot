@@ -6,16 +6,10 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 // spring 컨테이너를 이용한 context 테스트를 위해 설정
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = HellobootSpringApplication.class)
-@TestPropertySource("classpath:/application.properties")
+@HellobootTest
 public class DataSourceTest {
 
 	@Autowired
