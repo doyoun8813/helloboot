@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = HellobootSpringApplication.class)
+@ContextConfiguration(classes = HellobootApplication.class)
 @TestPropertySource("classpath:/application.properties")
 @Transactional
 public @interface HellobootTest {

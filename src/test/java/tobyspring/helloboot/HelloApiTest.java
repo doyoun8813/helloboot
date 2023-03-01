@@ -46,7 +46,7 @@ public class HelloApiTest {
 		TestRestTemplate rest = new TestRestTemplate();
 
 		// 파라미터 값을 넘기지 않았을 때 IllegalArgumentException 난다
-		final ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+		final ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name=", String.class);
 
 		// status code 500이 일어나면 성공
 		Assertions.assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
