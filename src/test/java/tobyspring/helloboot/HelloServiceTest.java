@@ -9,7 +9,7 @@ public class HelloServiceTest {
 
 	@Test
 	void simpleHelloService(){
-		SimpleHelloService helloService = new SimpleHelloService();
+		SimpleHelloService helloService = new SimpleHelloService(helloRepositoryStub);
 
 		// 파라미터로 보낸 값이 정상적으로 리턴되는지 확인한다.
 		String ret = helloService.sayHello("Test");
@@ -17,6 +17,17 @@ public class HelloServiceTest {
 		Assertions.assertThat(ret).isEqualTo("Hello Test");
 	}
 
+	private HelloRepository helloRepositoryStub = new HelloRepository() {
+		@Override
+		public Hello findHello(String name) {
+			return null;
+		}
+
+		@Override
+		public void increaseCount(String name) {
+
+		}
+	};
 
 	@DisplayName("HelloDecorator가 잘 동작하는지 확인")
 	@Test

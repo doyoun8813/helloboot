@@ -24,6 +24,11 @@ public class HelloController {
 
 	}
 
+	@GetMapping("/count")
+	public String count(String name){
+		return "name : " + helloService.countOf(name);
+	}
+
 	//POST방식의 /hello url로 요청이 왔을 때 처리
 	@PostMapping("/hello")
 	public String hello(){
